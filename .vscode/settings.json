@@ -1,6 +1,20 @@
 {
     "files.associations": {
-        "io.h": "c",
-        "main.c": "cpp"
-    }
+        "main.c": "cpp",
+    },
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.fontSize": 11,
+    "cSpell.userWords": [
+        "Checkdb",
+        "Updatedb",
+        "bson",
+        "lisc",
+        "pymongo"
+    ],
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "workbench.colorTheme": "Default High Contrast",
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, UseTab: Always, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Attach, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4 }"
 }

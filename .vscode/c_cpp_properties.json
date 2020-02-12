@@ -13,7 +13,7 @@
                 "C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/mega",
                 "C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/micro",
                 "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include",
-                "/usr/lib/avr/include"
+                "/home/duys/arduino-1.8.10/hardware/tools/avr/avr/include"
             ],
             "defines": [
                 "USBCON"

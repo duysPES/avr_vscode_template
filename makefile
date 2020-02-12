@@ -13,12 +13,22 @@
 #                is connected.
 # FUSES ........ Parameters for avrdude to flash the fuses appropriately.
 
-DEVICE     = attiny84
-CLOCK      = 8000000
-PROGRAMMER = -c arduino -P /dev/tty.usb* -b 19200 
-OBJECTS    = main.o
-FUSES      = -U lfuse:w:0x64:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m
+DEVICE     	= atmega2560
+CLOCK      	= 16000000
+PROGRAMMER 	= -cwiring -P /dev/ttyACM0
+CONF 	   	= /etc/avrdude.conf
+FUSES      	= -U lfuse:w:0x64:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m
+SRC_DIR 	= src
 
+SRC 		:= $(shell find $(SRC_DIR) -name '*.cpp') 
+SRC         += $(shell find $(SRC_DIR) -name '*.c')
+
+ 
+OBJ_DIR		:= obj
+OBJECTS    	= $(OBJ_DIR)/main.o
+
+LIB_DIR		:= lib
+CFLAGS		:= -Wall -Os
 
 ######################################################################
 ######################################################################
@@ -26,7 +36,7 @@ FUSES      = -U lfuse:w:0x64:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m
 # Tune the lines below only if you know what you are doing:
 
 AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
-COMPILE = avr-g++ -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
+COMPILE = avr-g++ $(CFLAGS) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 # symbolic targets:
 all:	main.hex
@@ -45,7 +55,7 @@ all:	main.hex
 	$(COMPILE) -S $< -o $@
 
 flash:	all
-	$(AVRDUDE) -U flash:w:main.hex:i
+	$(AVRDUDE) -C$(CONF) -D -U flash:w:$(OBJ_DIR)/main.hex:i
 
 fuse:
 	$(AVRDUDE) $(FUSES)
@@ -57,16 +67,21 @@ load: all
 	bootloadHID main.hex
 
 clean:
-	rm -f main.hex main.elf $(OBJECTS)
+	rm -f $(OBJ_DIR)/*
+
+main.o:
+	@echo $(SRC)
+	$(COMPILE) $(SRC) -o ${OBJ_DIR}/main.elf
 
 # file targets:
-main.elf: $(OBJECTS)
-	$(COMPILE) -o main.elf $(OBJECTS)
+main.elf: main.o
+	# $(COMPILE) -o $(OBJ_DIR)/main.elf $(OBJECTS)
 
 main.hex: main.elf
 	rm -f main.hex
-	avr-objcopy -j .text -j .data -O ihex main.elf main.hex
-	avr-size -C --mcu=$(DEVICE) main.elf
+	avr-objcopy -j .text -j .data -O ihex $(OBJ_DIR)/main.elf $(OBJ_DIR)/main.hex
+	avr-size -C --mcu=$(DEVICE) $(OBJ_DIR)/main.elf
+
 # If you have an EEPROM section, you must also create a hex file for the
 # EEPROM and add it to the "flash" target.
 
