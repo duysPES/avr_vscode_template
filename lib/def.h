@@ -10,6 +10,8 @@
 /********************** ALIASES AND TYPEDEFS ******************************/
 #define true 1
 #define false 0
+#define BITS_IN_BYTE 8
+#define BITS_IN_WORD 16
 
 typedef unsigned char uint8_t;
 typedef unsigned int uint16_t;
@@ -43,6 +45,21 @@ typedef uint16_t word;
 #define C_CLEARBIT(comb) CLEARBIT(VARFROMCOMB(comb), BITFROMCOMB(comb))
 #define C_FLIPBIT(comb) FLIPBIT(VARFROMCOMB(comb), BITFROMCOMB(comb))
 #define C_CHECKBIT(comb) CHECKBIT(VARFROMCOMB(comb), BITFROMCOMB(comb))
+/*************************************************************************/
+
+/********************** TIME RELATED *************************************/
+volatile static __inline__ void delay_ms(unsigned int ms) {
+	do {
+		_delay_ms(1);
+	} while (ms--);
+}
+
+volatile static __inline__ void delay_us(unsigned int us) {
+	do {
+		_delay_us(1);
+	} while (us--);
+}
+
 /*************************************************************************/
 
 #endif

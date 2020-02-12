@@ -14,17 +14,8 @@
 #include <util/delay.h>
 #include "../lib/def.h"
 
-#define BUILTIN_LED PORTB, PB7
-
-void nothing() {}
-
 int main() {
-	SETBIT(DDRB, PB7);
-	while (1) {
-		C_SETBIT(BUILTIN_LED);  // hello
-		_delay_us(500);
-		C_CLEARBIT(BUILTIN_LED);
-		_delay_us(500);
+	while (true) {
 	}
 
 	return 0;
