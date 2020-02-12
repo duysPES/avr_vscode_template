@@ -12,7 +12,8 @@
                 "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src",
                 "C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/mega",
                 "C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/micro",
-                "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include"
+                "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include",
+                "/usr/lib/avr/include"
             ],
             "defines": [
                 "USBCON"
