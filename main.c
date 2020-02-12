@@ -1,24 +1,26 @@
 #define __AVR_ATtiny84A__
 
+#define OFF(PORT, PIN) (PORT |= (0 << PIN))
+#define ON(PORT, PIN) (PORT |= (1 << PIN))
+
 #include <avr/io.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
 
 typedef unsigned char byte;
 typedef byte Pin;
-class MyClass
+
+volatile unsigned long milliseconds;
+
+ISR(TIM0_COMPA_vect)
 {
-    Pin _tx;
+    ++milliseconds;
+}
 
-public:
-    MyClass(Pin tx)
-    {
-        this->_tx = tx;
-    }
-
-    void on()
-    {
-    }
-};
+unsigned long millis(void)
+{
+    return milliseconds;
+}
 
 int main()
 {
