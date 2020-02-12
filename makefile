@@ -87,7 +87,7 @@ main.hex: main.elf
 
 # Targets for code debugging and analysis:
 disasm:	main.elf
-	avr-objdump -d main.elf
+	avr-objdump -SlC $(OBJ_DIR)/main.elf
 
 cpp:
 	$(COMPILE) -E main.c

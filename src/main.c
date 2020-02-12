@@ -16,6 +16,8 @@
 
 #define BUILTIN_LED PORTB, PB7
 
+void nothing() {}
+
 int main() {
 	SETBIT(DDRB, PB7);
 	while (1) {
