@@ -3,6 +3,23 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+typedef unsigned char byte;
+typedef byte Pin;
+class MyClass
+{
+    Pin _tx;
+
+public:
+    MyClass(Pin tx)
+    {
+        this->_tx = tx;
+    }
+
+    void on()
+    {
+    }
+};
+
 int main()
 {
 
