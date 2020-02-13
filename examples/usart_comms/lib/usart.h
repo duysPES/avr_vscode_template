@@ -12,13 +12,12 @@
 #endif
 
 #include <avr/io.h>
-#include "def.h"
+#include "../../../lib/def.h"
 #include "stdint.h"
 
-#define BAUDRATE 9600
-#define FOSC 16000000
-#define MYUBRR FOSC / 16 / BAUDRATE - 1
-
-void usart_init(word ubrr);
+unsigned int ubrr_calc(unsigned int baudrate);
+void usart_init(unsigned long baudrate);
+void usart_transmit(byte data);
+unsigned char usart_recieve(void);
 
 #endif

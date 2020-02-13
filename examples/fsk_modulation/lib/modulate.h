@@ -19,7 +19,7 @@
 #ifndef __MODULATE_H__
 #define __MODULATE_H__
 
-#include "def.h"
+#include "../../../lib/def.h"
 
 #define FSK_PIN PB7
 #define FSK_COMB PORTB, FSK_PIN

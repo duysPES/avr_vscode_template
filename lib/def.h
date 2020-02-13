@@ -7,6 +7,7 @@
 #ifndef __AVR_DEF_H__
 #define __AVR_DEF_H__
 
+#include <util/delay.h>
 /********************** ALIASES AND TYPEDEFS ******************************/
 #define true 1
 #define false 0
@@ -28,6 +29,12 @@ typedef uint16_t word;
 //  C_SETBIT(BUILTIN_LED)   // turns it on
 //  C_CLEARBIT(BUILTIN_LED) // turns if off
 //
+#define CLEAR(ADDRESS) (ADDRESS = 0x00)
+#define SET(ADDRESS) (ADDRESS = 0xff)
+
+#define UPPER_16(DATA) ((unsigned char)(DATA >> 8))
+#define LOWER_16(DATA) ((unsigned char)(DATA))
+
 #define SETBIT(ADDRESS, BIT) (ADDRESS |= (1 << BIT))
 #define CLEARBIT(ADDRESS, BIT) (ADDRESS &= ~(1 << BIT))
 #define FLIPBIT(ADDRESS, BIT) (ADDRESS ^= (1 << BIT))

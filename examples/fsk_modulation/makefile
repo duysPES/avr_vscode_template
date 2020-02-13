@@ -17,7 +17,7 @@ DEVICE     	= atmega2560
 CLOCK      	= 16000000
 PROGRAMMER 	= -cwiring -P /dev/ttyACM0
 CONF 	   	= /etc/avrdude.conf
-FUSES      	= -U lfuse:w:0x64:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m
+FUSES      	= -U lfuse:w:0xe2:m -U hfuse:w:0x99:m -U efuse:w:0xfd:m
 SRC_DIR 	= src
 
 SRC			:= $(wildcard $(SRC_DIR)/*.c)
@@ -35,11 +35,13 @@ CFLAGS		:= -Wall -Os
 
 # Tune the lines below only if you know what you are doing:
 
-AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
+AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE) -C$(CONF)
 COMPILE = avr-g++ $(CFLAGS) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 # symbolic targets:
 all:	main.hex
+
+status: $(AVRDUDE)
 
 .c.o:
 	$(COMPILE) -c $< -o $@
@@ -55,7 +57,7 @@ all:	main.hex
 	$(COMPILE) -S $< -o $@
 
 flash:	all
-	$(AVRDUDE) -C$(CONF) -D -U flash:w:$(OBJ_DIR)/main.hex:i
+	$(AVRDUDE)  -D -U flash:w:$(OBJ_DIR)/main.hex:i
 
 fuse:
 	$(AVRDUDE) $(FUSES)
