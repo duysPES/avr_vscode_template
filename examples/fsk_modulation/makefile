@@ -20,8 +20,8 @@ CONF 	   	= /etc/avrdude.conf
 FUSES      	= -U lfuse:w:0x64:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m
 SRC_DIR 	= src
 
-SRC 		:= $(shell find $(SRC_DIR) -name '*.cpp') 
-SRC         += $(shell find $(SRC_DIR) -name '*.c')
+SRC			:= $(wildcard $(SRC_DIR)/*.c)
+SRC			+= $(wildcard $(SRC_DIR)/*.cpp)
 
  
 OBJ_DIR		:= obj
