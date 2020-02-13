@@ -21,8 +21,11 @@
 
 #include "../../../lib/def.h"
 
-#define FSK_PIN PB7
+#define FSK_PIN PB5
+#define DBG_PIN PB0
+
 #define FSK_COMB PORTB, FSK_PIN
+#define DBG_COMB PORTB, DBG_PIN
 
 #define BAUDRATE 250
 
@@ -32,19 +35,28 @@
 #define MARK_CYCLES 4
 #define SPACE_CYCLES 8
 
-#define MARK_DELAY 500   // 10000 / 2
-#define SPACE_DELAY 250  // 500 / 2
+#define MARK_DELAY 500  // 10000 / 2
+#define SPACE_DELAY 250 // 500 / 2
 
-static inline void modulate_bit(byte& bit) {
-	if (bit) {
-		for (byte i = 0; i < MARK_CYCLES; i++) {
+static inline void modulate_bit(byte const &bit)
+{
+	if (bit)
+	{
+		C_SETBIT(DBG_COMB);
+		for (byte i = 0; i < MARK_CYCLES; i++)
+		{
 			C_CLEARBIT(FSK_COMB);
 			_delay_us(MARK_DELAY);
 			C_SETBIT(FSK_COMB);
 			_delay_us(MARK_DELAY);
 		}
-	} else {
-		for (byte i = 0; i < SPACE_CYCLES; i++) {
+	}
+	else
+	{
+		C_CLEARBIT(DBG_COMB);
+
+		for (byte i = 0; i < SPACE_CYCLES; i++)
+		{
 			C_CLEARBIT(FSK_COMB);
 			_delay_us(SPACE_DELAY);
 			C_SETBIT(FSK_COMB);
@@ -53,15 +65,24 @@ static inline void modulate_bit(byte& bit) {
 	}
 }
 
-static inline void modulate_byte(byte b) {
-	for (byte i = 0; i < BITS_IN_BYTE; i++) {
+// when modulating the byte, we must have LSb first in time
+// with MSb last
+static inline void modulate_byte(byte b)
+{
+	modulate_bit(0x00); // start_bit
+	for (byte i = BITS_IN_BYTE; i > 0; i--)
+	{
 		byte bit = (b >> i) & 0x01;
 		modulate_bit(bit);
 	}
+
+	modulate_bit(0x01); // stop_bit
 }
 
-static inline void modulate(const byte* b, byte size) {
-	for (byte i = 0; i < size; i++) {
+static inline void modulate(const byte *b, byte size)
+{
+	for (byte i = 0; i < size; i++)
+	{
 		modulate_byte(*b++);
 	}
 }

@@ -13,9 +13,9 @@
 #                is connected.
 # FUSES ........ Parameters for avrdude to flash the fuses appropriately.
 
-DEVICE     	= atmega2560
+DEVICE     	= atmega328p
 CLOCK      	= 16000000
-PROGRAMMER 	= -cwiring -P /dev/ttyACM0
+PROGRAMMER 	= -carduino -P /dev/ttyUSB0
 CONF 	   	= /etc/avrdude.conf
 FUSES      	= -U lfuse:w:0xe2:m -U hfuse:w:0x99:m -U efuse:w:0xfd:m
 SRC_DIR 	= src

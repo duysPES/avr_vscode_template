@@ -18,14 +18,21 @@
 #include "../../../lib/def.h"
 #include "../lib/modulate.h"
 
-int main() {
-	SETBIT(DDRB, FSK_PIN);  // set FSK for output
-	C_SETBIT(FSK_COMB);		// default it to HIGH
-	const byte x[5] = {0xAD, 0xFF, 0x12, 0x45, 0xDA};
+int main()
+{
+	SETBIT(DDRB, FSK_PIN); // set FSK for output
+	SETBIT(DDRB, DBG_PIN);
 
-	while (1) {
-		modulate(x, sizeof(x) / sizeof(x[0]));
-		_delay_ms(100);
+	C_SETBIT(FSK_COMB);   // default it to HIGH
+	C_CLEARBIT(DBG_COMB); // default to LOW
+
+	// const byte packet[] = {0x1A, 0x2B, 0x3C, 0x4D, 0x5E};
+	const byte x = 0x45;
+	while (1)
+	{
+		// modulate(packet, 5);
+		modulate_byte(x);
+		_delay_ms(500);
 	}
 	return 0;
 }
