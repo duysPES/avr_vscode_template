@@ -16,10 +16,15 @@
 int main() {
 	usart_init(BAUDRATE);
 	while (1) {
-		usart_transmit('a');
+		byte recv_data = usart_recieve();
+		char str[] = "You said: ";
+
+		for (byte i = 0; i < sizeof(str) / sizeof(str[0]); i++) {
+			usart_transmit(str[i]);
+		}
+		usart_transmit(recv_data);
 		usart_transmit('\r');
 		usart_transmit('\n');
-		_delay_ms(500);
 	}
 	return 0;
 }
