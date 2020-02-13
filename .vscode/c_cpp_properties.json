@@ -16,7 +16,8 @@
                 "/home/duys/arduino-1.8.10/hardware/tools/avr/avr/include"
             ],
             "defines": [
-                "USBCON"
+                "USBCON",
+                "__AVR_ATmega2560__"
             ],
             "compilerPath": "C:/Program Files (x86)/Arduino/hardware/tools/avr/bin/avr-gcc.exe",
             "cStandard": "c11",
