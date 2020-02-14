@@ -15,6 +15,8 @@
 #define BAUDRATE 9600
 #define BAUD_PRESCALER (((F_CPU / (BAUDRATE * 16UL))) - 1)
 
+#define BUILTIN_LED PORTD, PD2
+
 volatile byte counter = 0;
 
 void init_interrupts() {
@@ -40,6 +42,7 @@ int main(void) {
 
 	UBRR0 = BAUD_PRESCALER;
 
+	pinMode(BUILTIN_LED, OUTPUT);
 	init_interrupts();
 	for (;;) {
 		// show casing ATOMIC operation, so that ISR and main loop
