@@ -1,5 +1,0 @@
-/**
- * 
- * Implementation of def.h
- * 
- * **/
