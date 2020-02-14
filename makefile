@@ -73,7 +73,7 @@ clean:
 
 main.o:
 	@echo $(SRC)
-	$(COMPILE) $(SRC) -o ${OBJ_DIR}/main.elf
+	$(COMPILE) $(SRC) -g -o ${OBJ_DIR}/main.elf
 
 # file targets:
 main.elf: main.o
